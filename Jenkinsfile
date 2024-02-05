@@ -9,7 +9,7 @@ pipeline{
     parameters {
         choice(name: 'action', choices: 'create\ndelete', description: 'Select create or destroy.')
         
-        string(name: 'DOCKER_HUB_USERNAME', defaultValue: 'sevenajay', description: 'Docker Hub Username')
+        string(name: 'DOCKER_HUB_USERNAME', defaultValue: 'shalinichandru', description: 'Docker Hub Username')
         string(name: 'IMAGE_NAME', defaultValue: 'youtube', description: 'Docker Image Name')
     }
     tools{
@@ -27,7 +27,7 @@ pipeline{
         }
         stage('checkout from Git'){
             steps{
-                checkoutGit('https://github.com/Aj7Ay/Youtube-clone-app.git', 'main')
+                checkoutGit('https://github.com/chandrushal/Youtube-clone-app.git', 'main')
             }
         }
         stage('sonarqube Analysis'){
@@ -109,7 +109,7 @@ pipeline{
     always {
         echo 'Slack Notifications'
         slackSend (
-            channel: '#channel name',   #change your channel name
+            channel: 'jenkins',  / #change your channel name
             color: COLOR_MAP[currentBuild.currentResult],
             message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} \n build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         )
